@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notebook</title>
+    <link rel="stylesheet" href="/styles/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <h1>NoteBook App</h1>
+        <div>
+            <button id="addNote">Add Note</button>
+        </div>
+    </header>
+    <div id="modalBackground"></div>
+    
+    <div id="note-modal" class="modal">
+        <div id="quill-container">
+            <div id="noteTitleContainer">
+                <input type="text" placeholder="Title..." id="noteTitle">
+            </div>
+            <div class="modal-content">
+                
+            </div>
+            <div>
+                <div>
+                    <ul id="addedTagContainer"></ul>
+                    <div id="addTagContainer"><button id="showTags">Show Tags</button></div>
+                    <div id="createdTagContainerOptions">
+                        <ul id="checkboxTagList"></ul>
+                        <button id="addTagToNoteButton">Add Tag</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="noteId">
+    </div>
+    
+    <main>
+        <div id="tag-container">
+            <div id="tagInputContainer">
+                <input type="text" id="tagInput" placeholder="Add Tag...">
+                <button id="createTagButton">Create Tag</button>
+            </div>
+            <ul id="tagList"></ul>             
+        </div>
+        <div class="notes-container"></div>
+    </main>
+    <footer></footer>
+    <script src="js/index.js" type="module"></script>
+  </body>
+</html>
