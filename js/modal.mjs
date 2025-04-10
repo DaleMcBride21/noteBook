@@ -38,12 +38,19 @@ export function addNote() {
 export function closeModal() {
     const modalBackground = document.getElementById("modalBackground");
     const modal = document.getElementById("note-modal");
-
+    const addTagsButton = document.getElementById('showTags');
+    const createdTagContainer = document.getElementById('createdTagContainerOptions');
+    
     modalBackground.addEventListener("click", () => {
+        if (createdTagContainer.style.display != 'none') {
+            alert("Please close the tag options first.");
+            return;
+        } // Close the modal if tag options are not open
         console.log("close");
         saveNote();
         modal.style.height = "0";
         modalBackground.style.display = "none";
+        addTagsButton.style.display = 'inline-block';
     });
 }
 

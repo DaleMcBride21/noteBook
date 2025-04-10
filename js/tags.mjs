@@ -131,46 +131,56 @@ export function addTagToNote() {
     const checkboxTagList = document.getElementById('checkboxTagList');
     const addedTagContainer = document.getElementById('addedTagContainer');
 
-    
-    
-    
-    
-    if (!addTagToNoteButton.dataset.listenerAdded) { // Prevents duplicate listeners
+    if (!addTagToNoteButton.dataset.listenerAdded) {
         addTagToNoteButton.dataset.listenerAdded = "true";
-        
-        addTagToNoteButton.addEventListener('click', function() {
-            const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+        addTagToNoteButton.addEventListener('click', function () {
+            let notes = JSON.parse(localStorage.getItem('notes')) || [];
             const noteId = document.getElementById('noteId').value;
             const note = notes.find(note => note.id == noteId);
-            const noteTags = note ? note.tags : [];
 
-            console.log('noteTags from addTagToNote Function', noteTags);
+            if (!note) return;
 
-            const selectedTags = Array.from(checkboxTagList.querySelectorAll('input[type="checkbox"]:checked'))
-                .map(checkbox => checkbox.value);
+            const checkboxes = Array.from(checkboxTagList.querySelectorAll('input[type="checkbox"]'));
+            const selectedTags = checkboxes.map(cb => ({ tag: cb.value, checked: cb.checked }));
 
-            console.log(selectedTags);
-            console.log('noteId from addTagToNote Function', noteId);
+            note.tags = note.tags || [];
 
-            
-            selectedTags.forEach(tag => {
-                if (!noteTags.includes(tag)) {
-                    console.log("Tag already added")
-                    const tagElement = document.createElement('li');
-                    tagElement.classList.add('modalTag');
-                    tagElement.innerText = `${tag}`;
-                    addedTagContainer.appendChild(tagElement);
-                } else {
-                    return;
+            // Add or remove tags from note.tags
+            selectedTags.forEach(({ tag, checked }) => {
+                const tagIndex = note.tags.indexOf(tag);
+
+                if (checked && tagIndex === -1) {
+                    // Add tag
+                    note.tags.push(tag);
+                } else if (!checked && tagIndex !== -1) {
+                    // Remove tag
+                    note.tags.splice(tagIndex, 1);
                 }
             });
 
+            // Update the DOM
+            addedTagContainer.innerHTML = ''; // Clear current tags in UI
+            note.tags.forEach(tag => {
+                const tagElement = document.createElement('li');
+                tagElement.classList.add('modalTag');
+                tagElement.innerText = tag;
+                addedTagContainer.appendChild(tagElement);
+            });
+
+            // Save updated note
+            localStorage.setItem('notes', JSON.stringify(notes));
+
+            // Hide modal
             createdTagContainer.style.display = 'none';
             checkboxTagList.innerHTML = '';
             addTagsButton.style.display = 'inline-block';
         });
     }
 }
+
+
+
 
 
 

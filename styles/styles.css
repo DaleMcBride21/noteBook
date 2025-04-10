@@ -91,17 +91,17 @@ main {
     outline: none;
 }
 
-#tagList {
+#tagList, .noteTags {
     list-style-type: none;
     padding: 0;
     margin: 10px 0;
-    max-width: 300px;
+    max-width: 400px;
     display: flex;
     flex-wrap: wrap;
     gap: 10px; /* Adds spacing between tags */
 }
 
-.tag {
+.tag, .noteTag {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -118,7 +118,7 @@ main {
     transition: all 0.3s ease-in-out;
 }
 
-.tag:hover {
+.tag:hover, .noteTag:hover {
     cursor: pointer;
     background-color: #d0d0d0;
     transform: scale(1.05);

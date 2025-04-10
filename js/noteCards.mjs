@@ -2,11 +2,12 @@ import { quill } from "./modal.mjs";
  
  
 function noteTemplate(note) {
+    const tagElements = note.tags.map(tag => `<span class="noteTag">${tag}</span>`).join(' ');
+
     return `<a><div class="noteCard" data-id="${note.id}">
     <div class="noteTitle">${note.title}</div>
     <div class="noteContent">${note.content}</div>
-    <div class="noteTags">${note.tags}</div>
-
+    <div class="noteTags">${tagElements}</div>
     </div></a>`
 }
 
